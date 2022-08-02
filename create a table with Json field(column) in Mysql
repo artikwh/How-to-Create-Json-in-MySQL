@@ -1,0 +1,11 @@
+Creating a Table with JSON field-
+
+CREATE TABLE `database1`.`products` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `attributes` JSON NOT NULL,
+  PRIMARY KEY (`id`));
+  
+Out:
+id	name	attributes
+		
