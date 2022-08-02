@@ -1,0 +1,42 @@
+Inserting Data in JSON field-
+
+INSERT INTO `database1`.`products` (
+	`id` ,  `name` , `attributes`)
+VALUES(
+	'101' , 'Sony_TV' , 
+'{"screen": "50 inch", 
+"ports": ["hdmi", "usb"], 
+"speakers": {"left": "10 watt", "right": "10 watt"}}');
+
+INSERT INTO `database1`.`products` (
+	`id` ,  `name` , `attributes`)
+VALUES(
+	'101' , 'Sony_TV', JSON_OBJECT("screen", "50 inch", "ports", JSON_ARRAY("hdmi", "usb"), "speakers", JSON_OBJECT("left", "10 watt", "right", "10 watt"))
+);
+{"screen": "50 inch", 
+"ports": ["hdmi", "usb"], 
+"speakers": {"left": "10 watt", "right": "10 watt"}}	JSON_OBJECT("screen", "50 inch", "ports", JSON_ARRAY("hdmi", "usb"), "speakers", JSON_OBJECT("left", "10 watt", "right", "10 watt"))
+
+(Consider using JSON_OBJECT and JSON_ARRAY functions to avoid sql syntax error(error code-1064)
+
+
+Out: 
+id	name	attributes
+101	Sony_TV	{"ports": ["hdmi", "usb"], "screen": "50 inch", "speakers": {"left": "10 watt", "right": "10 watt"}}
+
+
+Duplicate keys:		
+If you mention same key more than once, it retains only last key/value pair and removes other key/value pair. This is called normalization. Also object keys are sorted.
+
+INSERT INTO `database1`.`products` (
+	`id` ,  `name` , `attributes`)
+VALUES(
+	'101' , 'Sony_TV', JSON_OBJECT("screen", "50 inch", "screen", "60 inch", "ports", JSON_ARRAY("hdmi", "usb"), "speakers", JSON_OBJECT("left", "10 watt", "right", "10 watt"))
+);
+
+
+Out:
+id	name	attributes
+101		
+		
+	Sony_TV	{"ports": ["hdmi", "usb"], "screen": "60 inch", "speakers": {"left": "10 watt", "right": "10 watt"}}
