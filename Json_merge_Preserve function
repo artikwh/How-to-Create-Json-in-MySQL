@@ -1,0 +1,14 @@
+JSON_MERGE_PRESERVE-
+merges two or more Json objects and creates single Json object.
+
+INSERT INTO `database1`.`products` (
+	`id` ,  `name` , `attributes`)
+VALUES(
+	'105' , 'Sony_TV' , JSON_MERGE_PRESERVE(JSON_OBJECT("screen", "60 inch", "ports", JSON_ARRAY("hdmi", "usb"), "speakers", JSON_OBJECT("left", "10 watt", "right", "10 watt")),'{"monitor_type":"LED"}'));
+
+
+Out:
+id	name	attributes
+105		
+		
+	Sony_TV	{"ports": ["hdmi", "usb"], "screen": "60 inch", "speakers": {"left": "10 watt", "right": "10 watt"}, "monitor_type": "LED"}
